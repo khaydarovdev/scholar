@@ -26,7 +26,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   setLoading: (loading) => set({ loading }),
   fetchProfile: async (userId: string) => {
     const { data } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle()
-    if (data) set({ profile: data as Profile })
+    set({ profile: data as Profile | null, loading: false })
   },
   signOut: async () => {
     await supabase.auth.signOut()

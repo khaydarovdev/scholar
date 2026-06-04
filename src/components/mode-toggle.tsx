@@ -20,9 +20,10 @@ export function ModeToggle({ className }: { className?: string }) {
         className={cn(
           "absolute flex size-6 items-center justify-center rounded-full shadow-sm transition-all duration-300",
           isDark
-            ? "translate-x-7 bg-emerald text-emerald-foreground"
-            : "translate-x-1 bg-background text-amber"
+            ? "translate-x-7 bg-emerald"
+            : "translate-x-1 bg-background"
         )}
+        style={{ color: isDark ? 'oklch(0.095 0.015 260)' : 'oklch(0.80 0.18 75)' }}
       >
         {isDark
           ? <Moon className="size-3.5" />
