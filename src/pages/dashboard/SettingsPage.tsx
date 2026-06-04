@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Settings, Bell, Shield, Palette, Moon, Sun, Monitor } from 'lucide-react'
+import { Settings, Bell, Shield, Palette, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
@@ -48,7 +48,7 @@ export function SettingsPage() {
         </CardHeader>
         <CardContent>
           <div className="flex gap-2">
-            {[['light', Sun, 'Light'], ['dark', Moon, 'Dark'], ['system', Monitor, 'System']].map(([value, Icon, label]) => (
+            {[['light', Sun, 'Light'], ['dark', Moon, 'Dark']].map(([value, Icon, label]) => (
               <button
                 key={value as string}
                 onClick={() => setTheme(value as any)}

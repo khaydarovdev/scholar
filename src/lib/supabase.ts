@@ -3,7 +3,13 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+  }
+})
 
 export type Scholarship = {
   id: string
@@ -76,4 +82,58 @@ export type SavedScholarship = {
   notes: string
   created_at: string
   scholarship?: Scholarship
+}
+
+export type SuccessStory = {
+  id: string
+  user_name: string
+  avatar_initials: string
+  scholarship_name: string
+  university: string
+  country: string
+  degree: string
+  amount: number | null
+  currency: string
+  year: number
+  story: string
+  quote: string
+  field: string
+  tags: string[]
+  is_featured: boolean
+  created_at: string
+}
+
+export type Alumni = {
+  id: string
+  name: string
+  avatar_initials: string
+  scholarship: string
+  university: string
+  country: string
+  degree: string
+  graduation_year: number
+  role: string
+  company: string
+  bio: string
+  linkedin_url: string
+  fields: string[]
+  is_available: boolean
+  response_time: string
+  created_at: string
+}
+
+export type Guide = {
+  id: string
+  title: string
+  slug: string
+  description: string
+  category: string
+  difficulty: 'beginner' | 'intermediate' | 'advanced'
+  duration_minutes: number
+  steps: Array<{ number: number; title: string; description: string; duration: string }>
+  tips: string[]
+  checklist: string[]
+  tags: string[]
+  is_featured: boolean
+  created_at: string
 }

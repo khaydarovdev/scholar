@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { ScholarshipCard } from '@/components/ScholarshipCard'
+import { ScholarshipPanel } from '@/components/ScholarshipPanel'
 import { fetchScholarships } from '@/lib/api'
 import type { Scholarship } from '@/lib/supabase'
 
@@ -21,6 +22,7 @@ export function ScholarshipsPage() {
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
   const [showFilters, setShowFilters] = useState(false)
+  const [panelScholarship, setPanelScholarship] = useState<Scholarship | null>(null)
 
   const search = searchParams.get('search') || ''
   const country = searchParams.get('country') || ''
@@ -151,9 +153,22 @@ export function ScholarshipsPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {scholarships.map(s => <ScholarshipCard key={s.id} scholarship={s} />)}
+          {scholarships.map(s => (
+            <ScholarshipCard
+              key={s.id}
+              scholarship={s}
+              onClick={() => setPanelScholarship(s)}
+            />
+          ))}
         </div>
       )}
+
+      {/* Scholarship detail panel */}
+      <ScholarshipPanel
+        scholarship={panelScholarship}
+        open={!!panelScholarship}
+        onClose={() => setPanelScholarship(null)}
+      />
 
       {/* Pagination */}
       {totalPages > 1 && (

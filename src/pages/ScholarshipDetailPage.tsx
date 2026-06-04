@@ -70,7 +70,7 @@ export function ScholarshipDetailPage() {
 
   const handleTrack = async () => {
     if (!user || !scholarship) { toast.error('Sign in to track applications'); return }
-    const { error } = await addApplication(user.id, scholarship.id, scholarship.title, scholarship.provider)
+    const { error } = await addApplication(user.id, scholarship.id)
     if (error) toast.error('Already in your tracker')
     else { toast.success('Added to your tracker'); navigate('/tracker') }
   }

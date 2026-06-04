@@ -1,37 +1,34 @@
 import { Moon, Sun } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { useTheme } from "@/components/theme-provider"
+import { cn } from "@/lib/utils"
 
-export function ModeToggle() {
-  const { setTheme } = useTheme()
+export function ModeToggle({ className }: { className?: string }) {
+  const { theme, setTheme } = useTheme()
+  const isDark = theme === 'dark'
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <button
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className={cn(
+        "relative inline-flex h-8 w-14 items-center rounded-full border border-border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        isDark ? "bg-sidebar-accent" : "bg-muted",
+        className
+      )}
+      aria-label="Toggle theme"
+    >
+      <span
+        className={cn(
+          "absolute flex size-6 items-center justify-center rounded-full shadow-sm transition-all duration-300",
+          isDark
+            ? "translate-x-7 bg-emerald text-emerald-foreground"
+            : "translate-x-1 bg-background text-amber"
+        )}
+      >
+        {isDark
+          ? <Moon className="size-3.5" />
+          : <Sun className="size-3.5" />
+        }
+      </span>
+    </button>
   )
 }
