@@ -48,16 +48,27 @@ export function SettingsPage() {
         </CardHeader>
         <CardContent>
           <div className="flex gap-2">
-            {[['light', Sun, 'Light'], ['dark', Moon, 'Dark']].map(([value, Icon, label]) => (
-              <button
-                key={value as string}
-                onClick={() => setTheme(value as any)}
-                className={`flex-1 flex flex-col items-center gap-2 p-3 rounded-xl border transition-all text-sm font-medium ${theme === value ? 'border-emerald bg-emerald/5 text-emerald' : 'border-border text-muted-foreground hover:text-foreground hover:border-border/80'}`}
-              >
-                {(Icon as any)({ className: 'size-5' })}
-                {label as string}
-              </button>
-            ))}
+            {[
+  ['light', Sun, 'Light'],
+  ['dark', Moon, 'Dark']
+].map(([value, Icon, label]) => {
+  const IconComponent = Icon as typeof Sun
+
+  return (
+    <button
+      key={value as string}
+      onClick={() => setTheme(value as any)}
+      className={`flex-1 flex flex-col items-center gap-2 p-3 rounded-xl border transition-all text-sm font-medium ${
+        theme === value
+          ? 'border-emerald bg-emerald/5 text-emerald'
+          : 'border-border text-muted-foreground hover:text-foreground hover:border-border/80'
+      }`}
+    >
+      <IconComponent className="size-5" />
+      {label as string}
+    </button>
+  )
+})}
           </div>
         </CardContent>
       </Card>
